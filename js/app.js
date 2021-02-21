@@ -48,12 +48,17 @@ function render() {
         rightIndex = generateRandomIndex();
 
     }
-    while(leftIndex === middleIndex ||leftIndex === rightIndex || middleIndex === rightIndex);
-    leftImageElement.setAttribute('src',ObjectsArray[leftIndex].source);
-    middleImageElement.setAttribute('src',ObjectsArray[middleIndex].source);
-    rightImageElement.setAttribute('src',ObjectsArray[rightIndex].source);
-    console.log(ObjectsArray[leftIndex]);
-    console.log(ObjectsArray[middleIndex]);
+    while (leftIndex === middleIndex || leftIndex === rightIndex || middleIndex === rightIndex);
+    leftImageElement.setAttribute('src', ObjectsArray[leftIndex].source);
+    middleImageElement.setAttribute('src', ObjectsArray[middleIndex].source);
+    rightImageElement.setAttribute('src', ObjectsArray[rightIndex].source);
+    // console.log(ObjectsArray[leftIndex]);
+    // console.log(ObjectsArray[middleIndex]);
+    // console.log(ObjectsArray[rightIndex]);
+
+    ObjectsArray[leftIndex].shows++;
+    ObjectsArray[middleIndex].shows++;
+    ObjectsArray[rightIndex].shows++;
     console.log(ObjectsArray[rightIndex]);
 
 }
@@ -65,4 +70,38 @@ render();
 function generateRandomIndex() {
     let randomIndex = Math.floor(Math.random() * ObjectsArray.length);
     return randomIndex;
+}
+
+let pics = document.getElementById('pics');
+pics.addEventListener('click', handleClicking);
+
+function handleClicking(event) {
+
+    attempts++;
+    //console.log(event);
+
+    if (attempts <= maximumClicks) {
+        if (event.target.id === 'leftImage') {
+            ObjectsArray[leftIndex].votes++;
+
+        } else if (event.target.id === 'middleImage') {
+            ObjectsArray[middleIndex].votes++;
+
+        } else if (event.target.id === 'rightImage') {
+            ObjectsArray[rightIndex].votes++;
+        }
+        render();
+    } else {
+        let unorderdList = document.getElementById('unList');
+        let li;
+        for (let i = 0; i < ObjectsArray.length; i++) {
+            li = document.createElement('li');
+            unorderdList.appendChild(li);
+            // [0]
+            //cursin goat it has             
+            li.textContent = `${ObjectsArray[i].name} had ${ObjectsArray[i].votes} votes, and was seen ${ObjectsArray[i].shows} times.`
+        }
+
+        pics.removeEventListener('click' ,handleClicking);
+    }
 }
