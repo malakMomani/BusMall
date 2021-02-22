@@ -35,20 +35,33 @@ main div {
 }
 
 #result{
-  background-color: aquamarine;
-  width:25%;
+  background-color: rgba(248, 225, 227, 0.774);
+  width:26%;
   height: 75%;
-}
+  margin-left: 15px;
+  border: 2px solid rgb(71, 4, 4);
+  border-radius: 10px;
 
+}
 #result ul {
-  margin: auto auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+ul li {
+  margin-bottom: 3px;
+  font-family: 'Times New Roman', Times, serif;
+text-align: center;
+font-size: large;
 }
 #pics {
-  width: 75%;
+  width: 70%;
   text-align: center;
 }
 
-#pics h3 {
+h3 {
+  text-align: center;
   font-size: 25px;
   font-weight: bolder;
   font-family: Georgia, 'Times New Roman', Times, serif;
@@ -59,5 +72,5 @@ main div {
   border-radius: 10px;
   width: 260px;
   height: 260px;
-  margin-right: 10px;
+  margin-right: 5px;
 }
