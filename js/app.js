@@ -8,13 +8,16 @@ let middleImageElement = document.getElementById('middleImage');
 let rightImageElement = document.getElementById('rightImage');
 
 let ObjectsArray = [];
-
+let namesArr = [];
+let arrOfVotes = [];
+let shownArray = [];
 function Bus(name, source) {
     this.name = name;
     this.source = source;
     this.votes = 0;
     this.shows = 0;
     ObjectsArray.push(this);
+    namesArr.push(this.name);
 }
 
 new Bus('bag', 'assets/bag.jpg');
@@ -38,17 +41,47 @@ new Bus('usb', 'assets/usb.gif');
 new Bus('water-can', 'assets/water-can.jpg');
 new Bus('wine-glass', 'assets/wine-glass.jpg');
 
-console.log(ObjectsArray);
 
 let leftIndex, rightIndex, middleIndex;
+let preIndecies = [];
+let flag = true;
 function render() {
+
     do {
-        leftIndex = generateRandomIndex();
-        middleIndex = generateRandomIndex();
-        rightIndex = generateRandomIndex();
+        
+        if (flag) {
+            
+            leftIndex = generateRandomIndex();
+            middleIndex = generateRandomIndex();
+            rightIndex = generateRandomIndex();
+        }
+        else if(!flag) {
+            leftIndex = generateRandomIndex();
+            middleIndex = generateRandomIndex();
+            rightIndex = generateRandomIndex();
+
+            while(preIndecies.includes(leftIndex) || preIndecies.includes(middleIndex) || preIndecies.includes(rightIndex))  {
+                leftIndex = generateRandomIndex();
+                middleIndex = generateRandomIndex();
+                rightIndex = generateRandomIndex();
+
+            }
+    
+            console.log(preIndecies);
+        }
+        console.log('whole while');
+        preIndecies=[];
+        preIndecies.push(leftIndex);
+        preIndecies.push(middleIndex);
+        preIndecies.push(rightIndex);
+        console.log(preIndecies);
+
 
     }
     while (leftIndex === middleIndex || leftIndex === rightIndex || middleIndex === rightIndex);
+
+
+
     leftImageElement.setAttribute('src', ObjectsArray[leftIndex].source);
     middleImageElement.setAttribute('src', ObjectsArray[middleIndex].source);
     rightImageElement.setAttribute('src', ObjectsArray[rightIndex].source);
@@ -59,7 +92,6 @@ function render() {
     ObjectsArray[leftIndex].shows++;
     ObjectsArray[middleIndex].shows++;
     ObjectsArray[rightIndex].shows++;
-    console.log(ObjectsArray[rightIndex]);
 
 }
 
@@ -90,6 +122,7 @@ function handleClicking(event) {
         } else if (event.target.id === 'rightImage') {
             ObjectsArray[rightIndex].votes++;
         }
+        flag = false;
         render();
     } else {
         let unorderdList = document.getElementById('unList');
@@ -99,9 +132,43 @@ function handleClicking(event) {
             unorderdList.appendChild(li);
             // [0]
             //cursin goat it has             
+
             li.textContent = `${ObjectsArray[i].name} had ${ObjectsArray[i].votes} votes, and was seen ${ObjectsArray[i].shows} times.`
         }
-
-        pics.removeEventListener('click' ,handleClicking);
+        for (let j = 0; j < ObjectsArray.length; j++) {
+            arrOfVotes.push(ObjectsArray[j].votes);
+            shownArray.push(ObjectsArray[j].shows);
+        }
+        chartRender();
+        pics.removeEventListener('click', handleClicking);
     }
 }
+
+function chartRender() {
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'bar',
+
+        // The data for our dataset
+        data: {
+            labels: namesArr,
+            datasets: [{
+                label: 'Buses Votes',
+                backgroundColor: '#e79c2a',
+                borderColor: 'rgb(255, 99, 132)',
+                data: arrOfVotes,
+            }, {
+                label: 'Buses Displayed',
+                backgroundColor: '#5a3d55',
+                borderColor: 'rgb(155,100,30)',
+                data: shownArray,
+
+            }]
+        },
+
+        // Configuration options go here
+        options: {}
+    });
+}
+
