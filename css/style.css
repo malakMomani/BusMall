@@ -14,7 +14,7 @@ header {
 }
 header h1 {
   color: rgb(255, 209, 223);
-  font-family: 'Akaya Kanadaka', cursive;
+  font-family: 'Luckiest Guy', cursive;
   font-size: 40px;
   position: absolute;
   left: 20vw;
@@ -26,7 +26,7 @@ header img {
   position: sticky;
   display: block;
   width: 7%;;
-  left : 3vw;
+  left : 10vw;
 }
 
 main div {
