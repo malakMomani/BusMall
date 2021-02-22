@@ -1,5 +1,6 @@
 'use strict';
 
+let resultDiv = document.getElementById('result');
 let maximumClicks = 25;
 let attempts = 0;
 
@@ -48,29 +49,29 @@ let flag = true;
 function render() {
 
     do {
-        
+
         if (flag) {
-            
+
             leftIndex = generateRandomIndex();
             middleIndex = generateRandomIndex();
             rightIndex = generateRandomIndex();
         }
-        else if(!flag) {
+        else if (!flag) {
             leftIndex = generateRandomIndex();
             middleIndex = generateRandomIndex();
             rightIndex = generateRandomIndex();
 
-            while(preIndecies.includes(leftIndex) || preIndecies.includes(middleIndex) || preIndecies.includes(rightIndex))  {
+            while (preIndecies.includes(leftIndex) || preIndecies.includes(middleIndex) || preIndecies.includes(rightIndex)) {
                 leftIndex = generateRandomIndex();
                 middleIndex = generateRandomIndex();
                 rightIndex = generateRandomIndex();
 
             }
-    
+
             console.log(preIndecies);
         }
         console.log('whole while');
-        preIndecies=[];
+        preIndecies = [];
         preIndecies.push(leftIndex);
         preIndecies.push(middleIndex);
         preIndecies.push(rightIndex);
@@ -124,17 +125,8 @@ function handleClicking(event) {
         }
         flag = false;
         render();
-    } else {
-        let unorderdList = document.getElementById('unList');
-        let li;
-        for (let i = 0; i < ObjectsArray.length; i++) {
-            li = document.createElement('li');
-            unorderdList.appendChild(li);
-            // [0]
-            //cursin goat it has             
-
-            li.textContent = `${ObjectsArray[i].name} had ${ObjectsArray[i].votes} votes, and was seen ${ObjectsArray[i].shows} times.`
-        }
+    }
+    else {
         for (let j = 0; j < ObjectsArray.length; j++) {
             arrOfVotes.push(ObjectsArray[j].votes);
             shownArray.push(ObjectsArray[j].shows);
@@ -142,6 +134,32 @@ function handleClicking(event) {
         chartRender();
         pics.removeEventListener('click', handleClicking);
     }
+    
+
+}
+
+let resultBtn = document.getElementById('resultBtn');
+resultBtn.addEventListener('click', handlingButton);
+
+function handlingButton(event) {
+    
+    let unorderdList = document.getElementById('unList');
+    unorderdList.remove();
+    unorderdList = document.createElement('ul');
+    resultDiv.appendChild(unorderdList);
+    unorderdList.setAttribute('id','unList');
+    
+    let li;
+    for (let i = 0; i < ObjectsArray.length; i++) {
+        li = document.createElement('li');
+        unorderdList.appendChild(li);
+        // [0]
+        //cursin goat it has             
+
+        li.textContent = `${ObjectsArray[i].name} had ${ObjectsArray[i].votes} votes, and was seen ${ObjectsArray[i].shows} times.`
+    }
+
+
 }
 
 function chartRender() {
