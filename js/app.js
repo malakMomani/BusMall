@@ -108,8 +108,10 @@ function generateRandomIndex() {
 let pics = document.getElementById('pics');
 pics.addEventListener('click', handleClicking);
 
+
 function handleClicking(event) {
 
+    getResult();
     attempts++;
 
     if (attempts <= maximumClicks) {
@@ -143,7 +145,7 @@ let resultBtn = document.getElementById('resultBtn');
 resultBtn.addEventListener('click', handlingButton);
 
 function handlingButton(event) {
-    
+
     getResult();
 
     let unorderdList = document.getElementById('unList');
