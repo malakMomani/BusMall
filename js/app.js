@@ -61,25 +61,31 @@ function render() {
             middleIndex = generateRandomIndex();
             rightIndex = generateRandomIndex();
 
-            while (preIndecies.includes(leftIndex) || preIndecies.includes(middleIndex) || preIndecies.includes(rightIndex)) {
+            while (preIndecies.includes(leftIndex))
+            {
                 leftIndex = generateRandomIndex();
+
+            }
+            while(preIndecies.includes(middleIndex))
+            {
                 middleIndex = generateRandomIndex();
+
+            }
+            while(preIndecies.includes(rightIndex)) {
                 rightIndex = generateRandomIndex();
 
             }
 
-            console.log(preIndecies);
         }
-       // console.log('whole while');
-        preIndecies = [];
-        preIndecies.push(leftIndex);
-        preIndecies.push(middleIndex);
-        preIndecies.push(rightIndex);
-        //console.log(preIndecies);
-
-
+        //preIndecies = [];
+        //flag = false;
     }
     while (leftIndex === middleIndex || leftIndex === rightIndex || middleIndex === rightIndex);
+        preIndecies[0]= leftIndex;
+        preIndecies[1]=middleIndex;
+        preIndecies[2]=rightIndex;
+    console.log(preIndecies);
+    
 
 
 
