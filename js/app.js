@@ -42,7 +42,7 @@ new Bus('usb', 'assets/usb.gif');
 new Bus('water-can', 'assets/water-can.jpg');
 new Bus('wine-glass', 'assets/wine-glass.jpg');
 
-
+console.log(ObjectsArray);
 let leftIndex, rightIndex, middleIndex;
 let preIndecies = [];
 let flag = true;
@@ -70,12 +70,12 @@ function render() {
 
             console.log(preIndecies);
         }
-        console.log('whole while');
+       // console.log('whole while');
         preIndecies = [];
         preIndecies.push(leftIndex);
         preIndecies.push(middleIndex);
         preIndecies.push(rightIndex);
-        console.log(preIndecies);
+        //console.log(preIndecies);
 
 
     }
@@ -111,7 +111,6 @@ pics.addEventListener('click', handleClicking);
 function handleClicking(event) {
 
     attempts++;
-    //console.log(event);
 
     if (attempts <= maximumClicks) {
         if (event.target.id === 'leftImage') {
@@ -135,6 +134,8 @@ function handleClicking(event) {
         pics.removeEventListener('click', handleClicking);
     }
     
+    savedResult();
+    //resultBtn.addEventListener('click', handlingButton);
 
 }
 
@@ -143,6 +144,8 @@ resultBtn.addEventListener('click', handlingButton);
 
 function handlingButton(event) {
     
+    getResult();
+
     let unorderdList = document.getElementById('unList');
     unorderdList.remove();
     unorderdList = document.createElement('ul');
@@ -152,13 +155,31 @@ function handlingButton(event) {
     let li;
     for (let i = 0; i < ObjectsArray.length; i++) {
         li = document.createElement('li');
-        unorderdList.appendChild(li);
-        // [0]
-        //cursin goat it has             
+        unorderdList.appendChild(li);       
 
         li.textContent = `${ObjectsArray[i].name} had ${ObjectsArray[i].votes} votes, and was seen ${ObjectsArray[i].shows} times.`
     }
 
+}
+
+function savedResult (){
+    let result = JSON.stringify(ObjectsArray);
+    localStorage.setItem('Result',result);
+}
+
+function getResult()
+{
+    let result = localStorage.getItem('Result');
+    let storageList = JSON.parse(result);
+
+    if(storageList){
+        ObjectsArray=storageList;
+    } else {
+        ObjectsArray = [];
+    }
+    // resultBtn.addEventListener('click', handlingButton);
+    // console.log(storageList);
+    // console.log(ObjectsArray);
 
 }
 
