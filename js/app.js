@@ -42,7 +42,7 @@ new Bus('usb', 'assets/usb.gif');
 new Bus('water-can', 'assets/water-can.jpg');
 new Bus('wine-glass', 'assets/wine-glass.jpg');
 
-console.log(ObjectsArray);
+//console.log(ObjectsArray);
 let leftIndex, rightIndex, middleIndex;
 let preIndecies = [];
 let flag = true;
@@ -68,7 +68,6 @@ function render() {
 
             }
 
-            console.log(preIndecies);
         }
        // console.log('whole while');
         preIndecies = [];
@@ -106,15 +105,19 @@ function generateRandomIndex() {
 }
 
 let pics = document.getElementById('pics');
-pics.addEventListener('click', handleClicking);
+pics.addEventListener('click', handleClicking);console.log(ObjectsArray[leftIndex]);
 
+//console.log(ObjectsArray);
 
 function handleClicking(event) {
 
-    getResult();
+    
     attempts++;
 
     if (attempts <= maximumClicks) {
+        // console.log(ObjectsArray[leftIndex]);
+        // console.log(ObjectsArray);
+
         if (event.target.id === 'leftImage') {
             ObjectsArray[leftIndex].votes++;
 
@@ -146,7 +149,6 @@ resultBtn.addEventListener('click', handlingButton);
 
 function handlingButton(event) {
 
-    getResult();
 
     let unorderdList = document.getElementById('unList');
     unorderdList.remove();
@@ -176,8 +178,6 @@ function getResult()
 
     if(storageList){
         ObjectsArray=storageList;
-    } else {
-        ObjectsArray = [];
     }
     // resultBtn.addEventListener('click', handlingButton);
     // console.log(storageList);
@@ -213,3 +213,4 @@ function chartRender() {
     });
 }
 
+getResult();
